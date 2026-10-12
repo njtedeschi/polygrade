@@ -1,0 +1,42 @@
+# Autograder configuration for the example statistics assignment.
+language: python
+
+# Relative to this file. run_autograder copies the submitted .py files into
+# assignment/, so the submission is expected at assignment/stats.py.
+paths:
+  submission: assignment/stats.py
+  starter: assignment/stats_starter.py
+  solution: assignment/stats_solution.py
+
+# One entry per problem, keyed by problem number. `name` is the function the
+# problem asks students to implement. While a problem is graded, the functions
+# of all earlier problems are replaced with the solution's versions.
+problems:
+  1:
+    name: mean
+    weight: 4
+  2:
+    name: variance
+    weight: 4
+    partial_credit:
+      # An alternative, incorrect implementation in the solution module
+      - solution: population_variance
+        credit: 0.5
+        message: "Computed the population variance (dividing by n) instead of the sample variance (dividing by n - 1)."
+  3:
+    name: standardize
+    weight: 4
+  4:
+    name: running_total
+    weight: 4
+  5:
+    name: count_outliers
+    weight: 4
+    # This problem's test is written by hand in tests/test_stats.py
+    generate_test: false
+  6:
+    name: bootstrap_mean
+    weight: 4
+    # Reseed the random number generators before each call, so the submission
+    # and the solution draw the same random numbers
+    seed: 0

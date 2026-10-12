@@ -1,0 +1,49 @@
+# Autograder configuration for the example Clojure assignment.
+language: clojure
+
+# Relative to this file. run_autograder copies the single submitted .clj file
+# to submission.clj, whatever the student named it.
+paths:
+  submission: submission.clj
+  solution: solution.clj
+  tests: unit-tests.clj
+  # The submission must define everything the starter defines (functions with
+  # the same number of parameters). Alternatively, list them explicitly:
+  #   required:
+  #     functions: {square: 1, mean: 1}
+  #     variables: [sample-data]
+  starter: starter.clj
+
+# Mentioned to students when no single matching file was submitted
+submission_pattern: "*.clj"
+
+# How to run a Clojure script. This is the default; any command that runs a
+# script with command-line arguments works.
+command: [lein, exec]
+
+# Problem numbers must match the Q<n> prefixes of the unit test messages.
+problems:
+  1:
+    name: square
+    weight: 2
+  2:
+    name: sum-of-squares
+    weight: 3
+  3:
+    name: mean
+    weight: 3
+    partial_credit:
+      # Flagged by the unit test whose message starts with "PC3.1:"
+      - tag: "3.1"
+        credit: 0.5
+  4:
+    name: variance
+    weight: 3
+    partial_credit:
+      - tag: "4.1"
+        credit: 0.5
+        # Forgetting to divide in both mean and variance is one mistake, not two
+        waive_if: ["3.1"]
+  5:
+    name: sample-mean
+    weight: 1

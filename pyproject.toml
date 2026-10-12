@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "polygrade"
+version = "0.1.0"
+description = "A Gradescope autograding framework for Python, with a thin adapter layer for other languages (Clojure included)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = [
+    "gradescope-utils>=0.2.6",
+    "numpy",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+torch = ["torch"]
+dev = ["pytest"]
+
+[project.scripts]
+polygrade = "polygrade.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["polygrade*"]
+
+[tool.setuptools.package-data]
+polygrade = ["clojure/*.clj"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

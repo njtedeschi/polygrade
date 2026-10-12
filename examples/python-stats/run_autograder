@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Gradescope runs this for every submission. AUTOGRADER_ROOT is only set when
+# simulating Gradescope locally with `polygrade local`.
+root="${AUTOGRADER_ROOT:-/autograder}"
+cd "$root/source"
+
+# Copy every submitted .py file (from any subfolder) next to the starter and solution
+python3 -m polygrade collect --pattern "*.py" --dest assignment
+
+python3 -m polygrade run --results "$root/results/results.json"

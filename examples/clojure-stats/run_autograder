@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Gradescope runs this for every submission. AUTOGRADER_ROOT is only set when
+# simulating Gradescope locally with `polygrade local`.
+root="${AUTOGRADER_ROOT:-/autograder}"
+cd "$root/source"
+
+# Copy the one submitted .clj file (from any subfolder) to submission.clj.
+# To regrade a submission you've fixed by hand, add the fixed file to
+# corrected_submissions/ (named <submission id>.clj or after the submitted
+# file), upload the autograder again, and rerun it.
+python3 -m polygrade collect --single --pattern "*.clj" --dest submission.clj \
+    --overrides corrected_submissions
+
+python3 -m polygrade run --results "$root/results/results.json"

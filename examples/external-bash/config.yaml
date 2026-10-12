@@ -1,0 +1,34 @@
+# An assignment in a language polygrade has no special support for (here,
+# Bash), integrated purely through configuration: the test runner can be
+# written in any language, as long as it reports failures as
+#   FAIL Q<problem>: message      or      FAIL PC<tag>: message
+# (with ERROR instead of FAIL for crashes).
+language: external
+
+paths:
+  submission: submission.sh
+  solution: solution.sh
+  tests: run_tests.sh
+
+submission_pattern: "*.sh"
+
+# Optional blocking check that the submission compiles (here: parses).
+# Placeholders in braces are replaced with absolute paths from `paths`.
+compile_command: [bash, -n, "{submission}"]
+
+# Runs the tests. A nonzero exit status fails every problem.
+grade_command: [bash, "{tests}", "{solution}", "{submission}"]
+
+timeout: 60
+
+problems:
+  1:
+    name: greet
+    weight: 2
+  2:
+    name: word_count
+    weight: 3
+    partial_credit:
+      - tag: "2.1"
+        credit: 0.5
+        message: "Counted characters instead of words."
